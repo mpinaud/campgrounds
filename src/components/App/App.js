@@ -1,13 +1,16 @@
 import React, {Component} from 'react';
 
 // Material
-import CssBaseline from '@material-ui/core/CssBaseline';
 import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
 import campMuiTheme from './campMuiTheme';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Grid from '@material-ui/core/Grid';
+import Hidden from '@material-ui/core/Hidden';
 
 // Component
-import Routes from './Routes';
+import Menu from '../Menu/Menu';
 import Navigation from '../Navigation/Navigation';
+import Routes from './Routes';
 
 // Create theme
 const muiTheme = createMuiTheme(campMuiTheme);
@@ -22,7 +25,13 @@ class App extends Component {
                 {/* Provides an overall global theme and variables available to components*/}
                 <MuiThemeProvider theme={muiTheme}>
                     <Navigation/>
-                    <Routes/>
+                    <Grid container direction="row">
+                        {/* Hide Menu in Mobile View */}
+                        <Hidden xsDown>
+                            <Menu/>
+                        </Hidden>
+                        <Routes/>
+                    </Grid>
                 </MuiThemeProvider>
             </>
         );
