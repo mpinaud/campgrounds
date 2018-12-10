@@ -9,7 +9,7 @@ import campMuiTheme from './campMuiTheme';
 import Routes from './Routes';
 import Navigation from '../Navigation/Navigation';
 
-// create theme
+// Create theme
 const muiTheme = createMuiTheme(campMuiTheme);
 
 class App extends Component {
@@ -18,9 +18,10 @@ class App extends Component {
             <>
                 {/* CssBaseline provides a hard CSS reset. example(removes margin on all browser windows)*/}
                 <CssBaseline />
+
+                {/* Provides an overall global theme and variables available to components*/}
                 <MuiThemeProvider theme={muiTheme}>
                     <Navigation/>
-                    <div className="App">campground</div>
                     <Routes/>
                 </MuiThemeProvider>
             </>

@@ -5,11 +5,13 @@ import {withRouter, NavLink} from 'react-router-dom';
 // Material
 import {withStyles} from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
+import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import withWidth from '@material-ui/core/withWidth';
 
 const styles = () => ({});
 
@@ -18,29 +20,42 @@ class Navigation extends Component {
         open: false,
     };
 
+    // If open, close Swipeable drawer in Mobile view
+    componentDidUpdate() {
+        const {width} = this.props;
+        const {open} = this.state;
+        if (open === true && width !== 'xs') {
+            this.setState({
+                open: false
+            });
+        }
+    }
+
     toggleDrawer = () => {
         this.setState(prevState => ({open: !prevState.open}));
     };
 
     render() {
-        const {classes,} = this.props;
-        const {open,} = this.state;
+        const {classes, width} = this.props;
+        const {open} = this.state;
 
         return (
             <div>
                 <div className={classes.root}>
-                    <AppBar>
-                        <Toolbar disableGutters>
-                            <IconButton
-                                aria-label="Menu"
-                                onClick={this.toggleDrawer}
-                            >
-                                <MenuIcon />
-                            </IconButton>
-                            <NavLink exact to="/">
-                                <Typography
-                                    variant="h6"
+                    <AppBar position="relative">
+                        {/* Gutters is padding added to the MUI component */}
+                        <Toolbar disableGutters={width !== 'xs' ? false : true} position="fixed">
+                            {/* Hide Menu icon beyond Mobile view */}
+                            <Hidden smUp>
+                                <IconButton
+                                    aria-label="Menu"
+                                    onClick={this.toggleDrawer}
                                 >
+                                    <MenuIcon />
+                                </IconButton>
+                            </Hidden>
+                            <NavLink exact to="/">
+                                <Typography variant="h5">
                                     Campgrounds
                                 </Typography>
                             </NavLink>
@@ -71,6 +86,7 @@ class Navigation extends Component {
 
 Navigation.propTypes = {
     classes: PropTypes.object.isRequired,
+    width: PropTypes.string.isRequired,
 };
 
-export default withStyles(styles)(withRouter(Navigation));
+export default withStyles(styles)(withWidth()(withRouter(Navigation)));
