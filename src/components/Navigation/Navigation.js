@@ -39,7 +39,7 @@ class Navigation extends Component {
     };
 
     render() {
-        const {classes, width} = this.props;
+        const {campgrounds, classes, width} = this.props;
         const {open} = this.state;
 
         return (
@@ -79,7 +79,12 @@ class Navigation extends Component {
                         onClick={this.toggleDrawer}
                         onKeyDown={this.toggleDrawer}
                     >
-                        <Menu/>
+                        {campgrounds.map(campground => (
+                            <Menu
+                                key={campground.id}
+                                campground={campground}
+                            />
+                        ))}
                     </div>
                 </SwipeableDrawer>
             </div>
@@ -90,6 +95,7 @@ class Navigation extends Component {
 Navigation.propTypes = {
     classes: PropTypes.object.isRequired,
     width: PropTypes.string.isRequired,
+    campgrounds: PropTypes.array,
 };
 
 export default withStyles(styles)(withWidth()(withRouter(Navigation)));
