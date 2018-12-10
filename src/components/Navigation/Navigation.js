@@ -13,6 +13,9 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import withWidth from '@material-ui/core/withWidth';
 
+// Component
+import Menu from '../Menu/Menu';
+
 const styles = () => ({});
 
 class Navigation extends Component {
@@ -76,7 +79,7 @@ class Navigation extends Component {
                         onClick={this.toggleDrawer}
                         onKeyDown={this.toggleDrawer}
                     >
-                        menu
+                        <Menu/>
                     </div>
                 </SwipeableDrawer>
             </div>

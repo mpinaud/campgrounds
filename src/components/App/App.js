@@ -5,7 +5,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
 import campMuiTheme from './campMuiTheme';
 
-// Components
+// Component
 import Routes from './Routes';
 import Navigation from '../Navigation/Navigation';
 
