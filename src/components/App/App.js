@@ -7,16 +7,19 @@ import campMuiTheme from './campMuiTheme';
 
 // Components
 import Routes from './Routes';
+import Navigation from '../Navigation/Navigation';
 
-
+// create theme
 const muiTheme = createMuiTheme(campMuiTheme);
 
 class App extends Component {
     render() {
         return(
             <>
+                {/* CssBaseline provides a hard CSS reset. example(removes margin on all browser windows)*/}
                 <CssBaseline />
                 <MuiThemeProvider theme={muiTheme}>
+                    <Navigation/>
                     <div className="App">campground</div>
                     <Routes/>
                 </MuiThemeProvider>
