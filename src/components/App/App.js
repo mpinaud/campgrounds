@@ -15,7 +15,7 @@ import Menu from '../Menu/Menu';
 import Navigation from '../Navigation/Navigation';
 import Routes from './Routes';
 
-import campList from '../../Data/campsites.json';
+import campList from '../../data/campsites.json';
 
 // Create theme
 const muiTheme = createMuiTheme(campMuiTheme);
