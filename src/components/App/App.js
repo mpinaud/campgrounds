@@ -7,11 +7,13 @@ import {withStyles} from '@material-ui/core/styles';
 import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
 import campMuiTheme from './campMuiTheme';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
 import Paper from '@material-ui/core/Paper';
 
 // Component
+import Add from '../Add/Add';
 import Menu from '../Menu/Menu';
 import Navigation from '../Navigation/Navigation';
 import Routes from './Routes';
@@ -28,14 +30,12 @@ const styles = () => ({
 });
 
 class App extends Component {
-
     render() {
         const {classes, data} = this.props;
 
         if (!data.campgrounds) return null;
 
-        return (
-            <>
+        return <>
                 {/* CssBaseline provides a hard CSS reset. example(removes margin on all browser windows)*/}
                 <CssBaseline />
 
@@ -53,13 +53,14 @@ class App extends Component {
                                         campground={campground}
                                     />
                                 ))}
+                                <Divider />
+                                <Add/>
                             </Paper>
                         </Hidden>
                         <Routes />
                     </Grid>
                 </MuiThemeProvider>
-            </>
-        );
+            </>;
     }
 }
 

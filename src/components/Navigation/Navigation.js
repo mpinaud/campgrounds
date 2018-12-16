@@ -5,6 +5,7 @@ import {withRouter, NavLink} from 'react-router-dom';
 // Material
 import {withStyles} from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
+import Divider from '@material-ui/core/Divider';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -14,6 +15,7 @@ import Typography from '@material-ui/core/Typography';
 import withWidth from '@material-ui/core/withWidth';
 
 // Component
+import Add from '../Add/Add';
 import Menu from '../Menu/Menu';
 
 const styles = () => ({});
@@ -29,7 +31,7 @@ class Navigation extends Component {
         const {open} = this.state;
         if (open && width !== 'xs') {
             this.setState({
-                open: false
+                open: false,
             });
         }
     }
@@ -80,11 +82,10 @@ class Navigation extends Component {
                         onKeyDown={this.toggleDrawer}
                     >
                         {campgrounds.map(campground => (
-                            <Menu
-                                key={campground.id}
-                                campground={campground}
-                            />
+                            <Menu key={campground.id} campground={campground} />
                         ))}
+                        <Divider />
+                        <Add/>
                     </div>
                 </SwipeableDrawer>
             </div>
