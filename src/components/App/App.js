@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import {graphql} from 'react-apollo';
 
 // Material
 import {withStyles} from '@material-ui/core/styles';
@@ -15,7 +16,7 @@ import Menu from '../Menu/Menu';
 import Navigation from '../Navigation/Navigation';
 import Routes from './Routes';
 
-import campList from '../../data/campsites.json';
+import CAMPGROUNDS_QUERY from '../../graphql/queries/campgrounds';
 
 // Create theme
 const muiTheme = createMuiTheme(campMuiTheme);
@@ -24,36 +25,29 @@ const styles = () => ({
     paper: {
         height: '100vh',
     },
-})
+});
 
 class App extends Component {
-    state = {
-        campgrounds: [],
-    };
-
-    componentDidMount() {
-        this.setState({
-            campgrounds: campList
-        })
-    }
 
     render() {
-        const {classes} = this.props;
-        const {campgrounds} = this.state;
+        const {classes, data} = this.props;
 
-        return <>
+        if (!data.campgrounds) return null;
+
+        return (
+            <>
                 {/* CssBaseline provides a hard CSS reset. example(removes margin on all browser windows)*/}
                 <CssBaseline />
 
                 {/* Provides an overall global theme and variables available to components*/}
                 <MuiThemeProvider theme={muiTheme}>
-                    <Navigation campgrounds={campgrounds} />
+                    <Navigation campgrounds={data.campgrounds} />
                     <Grid container direction="row">
                         {/* Hide Menu in Mobile View */}
                         <Hidden xsDown>
                             {/* Elevation represents shadow intensity */}
                             <Paper elevation={1} className={classes.paper}>
-                                {campgrounds.map(campground => (
+                                {data.campgrounds.map(campground => (
                                     <Menu
                                         key={campground.id}
                                         campground={campground}
@@ -64,12 +58,14 @@ class App extends Component {
                         <Routes />
                     </Grid>
                 </MuiThemeProvider>
-            </>;
+            </>
+        );
     }
 }
 
 App.propTypes = {
     classes: PropTypes.object.isRequired,
+    data: PropTypes.object,
 };
 
-export default withStyles(styles)(App);
+export default graphql(CAMPGROUNDS_QUERY)(withStyles(styles)(App));

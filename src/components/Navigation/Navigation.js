@@ -27,7 +27,7 @@ class Navigation extends Component {
     componentDidUpdate() {
         const {width} = this.props;
         const {open} = this.state;
-        if (open === true && width !== 'xs') {
+        if (open && width !== 'xs') {
             this.setState({
                 open: false
             });
@@ -47,7 +47,7 @@ class Navigation extends Component {
                 <div className={classes.root}>
                     <AppBar position="relative">
                         {/* Gutters is padding added to the MUI component */}
-                        <Toolbar disableGutters={width !== 'xs' ? false : true} position="fixed">
+                        <Toolbar disableGutters={width === 'xs'}>
                             {/* Hide Menu icon beyond Mobile view */}
                             <Hidden smUp>
                                 <IconButton
@@ -93,9 +93,9 @@ class Navigation extends Component {
 }
 
 Navigation.propTypes = {
+    campgrounds: PropTypes.array,
     classes: PropTypes.object.isRequired,
     width: PropTypes.string.isRequired,
-    campgrounds: PropTypes.array,
 };
 
 export default withStyles(styles)(withWidth()(withRouter(Navigation)));
