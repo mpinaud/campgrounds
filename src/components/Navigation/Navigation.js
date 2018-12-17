@@ -78,8 +78,8 @@ class Navigation extends Component {
                     <div
                         tabIndex={0}
                         role="button"
-                        onClick={this.toggleDrawer}
-                        onKeyDown={this.toggleDrawer}
+                        // onClick={this.toggleDrawer}
+                        // onKeyDown={this.toggleDrawer}
                     >
                         {campgrounds.map(campground => (
                             <Menu key={campground.id} campground={campground} />
