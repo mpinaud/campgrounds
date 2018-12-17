@@ -79,7 +79,7 @@ class Navigation extends Component {
                 >
                     <div tabIndex={0} role="button">
                         {campgrounds.map(campground => (
-                            <Menu key={campground.id} campground={campground} />
+                            <Menu key={campground.id} campground={campground} toggleDrawer={this.toggleDrawer} />
                         ))}
                         <Divider />
                         <Add toggleDrawer={this.toggleDrawer} />

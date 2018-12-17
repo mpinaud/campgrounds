@@ -13,11 +13,11 @@ const styles = () => ({
     },
 });
 
-const Menu = ({classes, campground: {name, id}}) => {
+const Menu = ({classes, campground: {name, id}, toggleDrawer,}) => {
     return (
         <List component="nav" className={classes.list}>
             <NavLink exact to={`/${id}`}>
-                <ListItem button>
+                <ListItem button onClick={toggleDrawer}>
                     <ListItemText primary={name} />
                 </ListItem>
             </NavLink>
@@ -28,6 +28,7 @@ const Menu = ({classes, campground: {name, id}}) => {
 Menu.propTypes = {
     classes: PropTypes.object.isRequired,
     campground: PropTypes.object,
+    toggleDrawer: PropTypes.func,
 };
 
 export default withStyles(styles)(withRouter(Menu));
