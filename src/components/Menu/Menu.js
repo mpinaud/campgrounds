@@ -4,13 +4,12 @@ import {withRouter, NavLink} from 'react-router-dom';
 
 // Material
 import {withStyles} from '@material-ui/core/styles';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
+import {List, ListItem, ListItemText} from '@material-ui/core';
 
 const styles = () => ({
     list: {
         minWidth: 250,
+        padding: 0,
     },
 });
 

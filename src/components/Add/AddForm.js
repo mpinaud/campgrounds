@@ -1,25 +1,38 @@
-import React from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 // Material
 import {withStyles} from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import TextField from '@material-ui/core/TextField';
-import withMobileDialog from '@material-ui/core/withMobileDialog';
+import {
+    Button,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle,
+    TextField,
+    withMobileDialog,
+} from '@material-ui/core';
 
 const styles = () => ({});
 
-const AddForm = ({open, fullScreen, handleClose}) => {
-    return (
-        <div>
+class AddForm extends Component {
+    handleAdd = () => {
+        const {handleClose, toggleDrawer} = this.props;
+        // Close Swipeable Drawer if in Mobile View
+        if (toggleDrawer) {
+            toggleDrawer();
+            handleClose();
+        }
+        handleClose();
+    }
+
+    render() {
+        const {open, fullScreen, handleClose} = this.props;
+
+        return (
             <Dialog
                 open={open}
-                onClose={handleClose}
                 aria-labelledby="form-dialog-title"
                 fullScreen={fullScreen}
             >
@@ -31,7 +44,6 @@ const AddForm = ({open, fullScreen, handleClose}) => {
                         To add a campground please enter a name and image url
                     </DialogContentText>
                     <TextField
-                        autoFocus
                         margin="dense"
                         id="name"
                         label="Name"
@@ -50,20 +62,21 @@ const AddForm = ({open, fullScreen, handleClose}) => {
                     <Button onClick={handleClose} color="primary">
                         Cancel
                     </Button>
-                    <Button onClick={handleClose} color="primary">
+                    <Button onClick={this.handleAdd} color="primary">
                         Add
                     </Button>
                 </DialogActions>
             </Dialog>
-        </div>
-    );
-};
+        );
+    }
+}
 
 AddForm.propTypes = {
     classes: PropTypes.object,
     fullScreen: PropTypes.bool.isRequired,
-    open: PropTypes.bool,
     handleClose: PropTypes.func,
+    open: PropTypes.bool,
+    toggleDrawer: PropTypes.func,
 };
 
 export default withStyles(styles)(

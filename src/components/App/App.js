@@ -3,14 +3,16 @@ import PropTypes from 'prop-types';
 import {graphql} from 'react-apollo';
 
 // Material
-import {withStyles} from '@material-ui/core/styles';
-import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
 import campMuiTheme from './campMuiTheme';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Divider from '@material-ui/core/Divider';
-import Grid from '@material-ui/core/Grid';
-import Hidden from '@material-ui/core/Hidden';
-import Paper from '@material-ui/core/Paper';
+import {
+    createMuiTheme,
+    MuiThemeProvider,
+    withStyles,
+} from '@material-ui/core/styles';
+import {CssBaseline, Divider, Hidden, Paper} from '@material-ui/core';
+
+// GraphQL
+import CAMPGROUNDS_QUERY from '../../graphql/queries/campgrounds';
 
 // Component
 import Add from '../Add/Add';
@@ -18,12 +20,14 @@ import Menu from '../Menu/Menu';
 import Navigation from '../Navigation/Navigation';
 import Routes from './Routes';
 
-import CAMPGROUNDS_QUERY from '../../graphql/queries/campgrounds';
-
 // Create theme
 const muiTheme = createMuiTheme(campMuiTheme);
 
 const styles = () => ({
+    div: {
+        display: 'flex',
+        flexDirection: 'row',
+    },
     paper: {
         height: '100vh',
     },
@@ -35,14 +39,16 @@ class App extends Component {
 
         if (!data.campgrounds) return null;
 
-        return <>
+        return (
+            <>
                 {/* CssBaseline provides a hard CSS reset. example(removes margin on all browser windows)*/}
                 <CssBaseline />
 
                 {/* Provides an overall global theme and variables available to components*/}
                 <MuiThemeProvider theme={muiTheme}>
                     <Navigation campgrounds={data.campgrounds} />
-                    <Grid container direction="row">
+                    {/* <Grid container direction="row"> */}
+                    <div className={classes.div}>
                         {/* Hide Menu in Mobile View */}
                         <Hidden xsDown>
                             {/* Elevation represents shadow intensity */}
@@ -54,13 +60,15 @@ class App extends Component {
                                     />
                                 ))}
                                 <Divider />
-                                <Add/>
+                                <Add />
                             </Paper>
                         </Hidden>
                         <Routes />
-                    </Grid>
+                    </div>
+                    {/* </Grid> */}
                 </MuiThemeProvider>
-            </>;
+            </>
+        );
     }
 }
 

@@ -4,8 +4,7 @@ import PropTypes from 'prop-types';
 // Material
 import {withStyles} from '@material-ui/core/styles';
 import AddIcon from '@material-ui/icons/Add';
-import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
+import {Button, Grid} from '@material-ui/core';
 
 // Components
 import AddForm from './AddForm';
@@ -34,7 +33,7 @@ class Add extends Component {
     };
 
     render() {
-        const {classes} = this.props;
+        const {classes, toggleDrawer} = this.props;
         const {open} = this.state;
 
         return (
@@ -50,7 +49,7 @@ class Add extends Component {
                 </Button>
                 {/* A Portal lives outside of the root Dom element */}
                 <Portal>
-                    <AddForm open={open} handleClose={this.handleClose} />
+                    <AddForm open={open} handleClose={this.handleClose} toggleDrawer={toggleDrawer} />
                 </Portal>
             </Grid>
         );
@@ -58,7 +57,8 @@ class Add extends Component {
 }
 
 Add.propTypes = {
-    classes: PropTypes.object,
+    classes: PropTypes.object.isRequired,
+    toggleDrawer: PropTypes.func,
 };
 
 export default withStyles(styles)(Add);
