@@ -36,7 +36,7 @@ const styles = () => ({
 class App extends Component {
     render() {
         const {classes, data} = this.props;
-
+        if (!data) return null;
         if (!data.campgrounds) return null;
 
         return (
@@ -46,22 +46,26 @@ class App extends Component {
 
                 {/* Provides an overall global theme and variables available to components*/}
                 <MuiThemeProvider theme={muiTheme}>
-                    <Navigation campgrounds={data.campgrounds} />
+                    {data.campgrounds && (
+                        <Navigation campgrounds={data.campgrounds} />
+                    )}
                     {/* <Grid container direction="row"> */}
                     <div className={classes.div}>
                         {/* Hide Menu in Mobile View */}
                         <Hidden xsDown>
                             {/* Elevation represents shadow intensity */}
-                            <Paper elevation={1} className={classes.paper}>
-                                {data.campgrounds.map(campground => (
-                                    <Menu
-                                        key={campground.id}
-                                        campground={campground}
-                                    />
-                                ))}
-                                <Divider />
-                                <Add />
-                            </Paper>
+                            {data.campgrounds && (
+                                <Paper elevation={1} className={classes.paper}>
+                                    {data.campgrounds.map(campground => (
+                                        <Menu
+                                            key={campground.id}
+                                            campground={campground}
+                                        />
+                                    ))}
+                                    <Divider />
+                                    <Add />
+                                </Paper>
+                            )}
                         </Hidden>
                         <Routes />
                     </div>

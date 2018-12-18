@@ -22,6 +22,27 @@ const styles = theme => ({
 class Add extends Component {
     state = {
         open: false,
+        campground: {
+            name: '',
+            image: '',
+        },
+        error: false,
+    };
+
+    handleAdd = createCampgroundMutation => {
+        const {campground} = this.state;
+        const {toggleDrawer} = this.props;
+        if ( campground.name && campground.image !== '') {
+            createCampgroundMutation({variables: campground});
+            // Close Swipeable Drawer if in Mobile View
+            if (toggleDrawer) {
+                toggleDrawer();
+                this.handleClose();
+            }
+            this.handleClose();
+        } else {
+            this.setState({error: true});
+        }
     };
 
     handleClickOpen = () => {
@@ -32,9 +53,23 @@ class Add extends Component {
         this.setState({open: false});
     };
 
+    handleEditChange = name => event => {
+        const {campground} = this.state;
+        this.setState({
+            campground: {
+                ...campground,
+                [name]: event.target.value,
+            },
+        });
+    };
+
     render() {
-        const {classes, toggleDrawer} = this.props;
-        const {open} = this.state;
+        const {classes} = this.props;
+        const {
+            campground: {image, name},
+            error,
+            open,
+        } = this.state;
 
         return (
             <Grid container justify="center">
@@ -49,7 +84,15 @@ class Add extends Component {
                 </Button>
                 {/* A Portal lives outside of the root Dom element */}
                 <Portal>
-                    <AddForm open={open} handleClose={this.handleClose} toggleDrawer={toggleDrawer} />
+                    <AddForm
+                        error={error}
+                        handleAdd={this.handleAdd}
+                        handleClose={this.handleClose}
+                        handleEditChange={this.handleEditChange}
+                        image={image}
+                        name={name}
+                        open={open}
+                    />
                 </Portal>
             </Grid>
         );
