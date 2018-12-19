@@ -27,7 +27,7 @@ class Add extends Component {
             image: '',
         },
         error: false,
-    };
+    }; 
 
     handleAdd = createCampgroundMutation => {
         const {campground} = this.state;
@@ -39,6 +39,7 @@ class Add extends Component {
                 toggleDrawer();
                 this.handleClose();
             }
+            this.setState({campground: {name: '', image: ''}});
             this.handleClose();
         } else {
             this.setState({error: true});

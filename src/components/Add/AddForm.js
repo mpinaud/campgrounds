@@ -47,9 +47,9 @@ class AddForm extends Component {
         const {id} = this.state;
 
         // Redirect to Campground Page when createCampgroundMutation mutation is fired.
-        if (id) {
-            return <Redirect to={`/${id}`} />;
-        }
+        // if (id) {
+        //     return <Redirect to={`/${id}`} />;
+        // }
 
         return (
             <Dialog

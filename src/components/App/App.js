@@ -4,11 +4,7 @@ import {graphql} from 'react-apollo';
 
 // Material
 import campMuiTheme from './campMuiTheme';
-import {
-    createMuiTheme,
-    MuiThemeProvider,
-    withStyles,
-} from '@material-ui/core/styles';
+import {createMuiTheme, MuiThemeProvider, withStyles,} from '@material-ui/core/styles';
 import {CssBaseline, Divider, Hidden, Paper} from '@material-ui/core';
 
 // GraphQL
@@ -29,7 +25,8 @@ const styles = () => ({
         flexDirection: 'row',
     },
     paper: {
-        height: '100vh',
+        width: '250px',
+        height: '100vh'
     },
 });
 
@@ -40,7 +37,7 @@ class App extends Component {
         if (!data.campgrounds) return null;
 
         return (
-            <>
+            <div>
                 {/* CssBaseline provides a hard CSS reset. example(removes margin on all browser windows)*/}
                 <CssBaseline />
 
@@ -49,19 +46,23 @@ class App extends Component {
                     {data.campgrounds && (
                         <Navigation campgrounds={data.campgrounds} />
                     )}
-                    {/* <Grid container direction="row"> */}
                     <div className={classes.div}>
                         {/* Hide Menu in Mobile View */}
                         <Hidden xsDown>
                             {/* Elevation represents shadow intensity */}
                             {data.campgrounds && (
-                                <Paper elevation={1} className={classes.paper}>
-                                    {data.campgrounds.map(campground => (
-                                        <Menu
-                                            key={campground.id}
-                                            campground={campground}
-                                        />
-                                    ))}
+                                <Paper
+                                    elevation={1}
+                                    className={classes.paper}
+                                >
+                                    {data.campgrounds.map(
+                                        campground => (
+                                            <Menu
+                                                key={campground.id}
+                                                campground={campground}
+                                            />
+                                        )
+                                    )}
                                     <Divider />
                                     <Add />
                                 </Paper>
@@ -69,9 +70,8 @@ class App extends Component {
                         </Hidden>
                         <Routes />
                     </div>
-                    {/* </Grid> */}
                 </MuiThemeProvider>
-            </>
+            </div>
         );
     }
 }
