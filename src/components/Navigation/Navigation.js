@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {withRouter, NavLink} from 'react-router-dom';
-import ReactResizeDetector from 'react-resize-detector';
 
 // Material
 import {withStyles} from '@material-ui/core/styles';
@@ -13,7 +12,7 @@ import {
     Grid,
     Hidden,
     IconButton,
-    SwipeableDrawer,
+    Drawer,
     Toolbar,
     Typography,
     withWidth,
@@ -23,60 +22,64 @@ import {
 import Add from '../Add/Add';
 import Menu from '../Menu/Menu';
 
-const styles = () => ({});
+const drawerWidth = 240;
+
+const styles = theme => ({
+    appBar: {
+        marginLeft: drawerWidth,
+        [theme.breakpoints.up('sm')]: {
+            width: `calc(100% - ${drawerWidth}px)`,
+        },
+    },
+    drawer: {
+        [theme.breakpoints.up('sm')]: {
+            width: drawerWidth,
+            flexShrink: 0,
+        },
+    },
+    drawerPaper: {
+        width: drawerWidth,
+    },
+});
 
 class Navigation extends Component {
     state = {
-        open: false,
-        windowHeight: '',
+        mobileOpen: false,
     };
 
-    componentDidMount() {
-        this.onResize();
-        this.updateWindowDimensions();
-        window.addEventListener('resize', this.updateWindowDimensions);
-    }
-
-    // If open, close Swipeable drawer in Mobile view
-    componentDidUpdate() {
-        const {width} = this.props;
-        const {open} = this.state;
-        if (open && width !== 'xs') {
-            this.setState({
-                open: false,
-            });
-        }
-    }
-
-    componentWillUnmount() {
-        window.removeEventListener('resize', this.updateWindowDimensions);
-    }
-
-    onResize = (width, height) => {
-        // console.log('width', width);
-        // console.log('height', height);
-    };
-
-    toggleDrawer = () => {
-        this.setState(prevState => ({open: !prevState.open}));
-    };
-
-    updateWindowDimensions = () => {
-        this.setState({windowHeight: window.innerHeight});
+    handleDrawerToggle = () => {
+        this.setState(state => ({ mobileOpen: !state.mobileOpen }));
     };
 
     render() {
-        const {campgrounds, classes, width} = this.props;
-        const {open, windowHeight} = this.state;
+        const {campgrounds, classes} = this.props;
+        const {mobileOpen} = this.state;
 
-        return <div>
+        const drawer = (
+            <div tabIndex={0} role="button">
+                {campgrounds.map(campground => (
+                    <Menu
+                        key={campground.id}
+                        campground={campground}
+                        toggleDrawer={this.toggleDrawer}
+                    />
+                ))}
+                <Divider />
+                <Add toggleDrawer={this.toggleDrawer} />
+            </div>
+        )
+
+        return (
+            <>
                 <div className={classes.root}>
-                    <AppBar position="relative">
-                        {/* Gutters is padding added to the MUI component */}
-                        <Toolbar disableGutters={width === 'xs'}>
-                            {/* Hide Menu icon beyond Mobile view */}
+                    <AppBar position="fixed" className={classes.appBar}>
+                        <Toolbar>
+                            {/* Show menu icon in mobile view */}
                             <Hidden smUp>
-                                <IconButton aria-label="Menu" onClick={this.toggleDrawer}>
+                                <IconButton
+                                    aria-label="Menu"
+                                    onClick={this.handleDrawerToggle}
+                                >
                                     <MenuIcon />
                                 </IconButton>
                             </Hidden>
@@ -93,21 +96,34 @@ class Navigation extends Component {
                 </div>
 
                 {/* Dialog Menu */}
-                <SwipeableDrawer anchor="left" open={open} onClose={this.toggleDrawer} onOpen={this.toggleDrawer}>
-                    <div tabIndex={0} role="button">
-                        {campgrounds.map(campground => (
-                            <Menu
-                                key={campground.id}
-                                campground={campground}
-                                toggleDrawer={this.toggleDrawer}
-                            />
-                        ))}
-                        <Divider />
-                        <Add toggleDrawer={this.toggleDrawer} />
-                        <ReactResizeDetector handleWidth handleHeight onResize={this.onResize} />
-                    </div>
-                </SwipeableDrawer>
-            </div>;
+                <nav className={classes.drawer}>
+                    <Hidden smUp>
+                        <Drawer
+                            anchor="left"
+                            classes={{
+                                paper: classes.drawerPaper,
+                            }}
+                            open={mobileOpen}
+                            onClose={this.handleDrawerToggle}
+                            variant="temporary"
+                        >
+                            {drawer}
+                        </Drawer>
+                    </Hidden>
+                    <Hidden xsDown>
+                        <Drawer
+                            classes={{
+                                paper: classes.drawerPaper,
+                            }}
+                            variant="permanent"
+                            open
+                        >
+                            {drawer}
+                        </Drawer>
+                    </Hidden>
+                </nav>
+            </>
+        );
     }
 }
 
@@ -117,4 +133,4 @@ Navigation.propTypes = {
     width: PropTypes.string.isRequired,
 };
 
-export default withStyles(styles)(withWidth()(withRouter(Navigation)));
+export default withStyles(styles, { withTheme: true })(withWidth()(withRouter(Navigation)));

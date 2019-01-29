@@ -8,7 +8,7 @@ import {List, ListItem, ListItemText} from '@material-ui/core';
 
 const styles = () => ({
     list: {
-        minWidth: 250,
+        minWidth: 300,
         padding: 0,
     },
 });

@@ -4,29 +4,36 @@ import {graphql} from 'react-apollo';
 
 // Material
 import campMuiTheme from './campMuiTheme';
-import {createMuiTheme, MuiThemeProvider, withStyles,} from '@material-ui/core/styles';
-import {CssBaseline, Divider, Hidden, Paper} from '@material-ui/core';
+import {
+    createMuiTheme,
+    MuiThemeProvider,
+    withStyles,
+} from '@material-ui/core/styles';
+import {CssBaseline} from '@material-ui/core';
 
 // GraphQL
 import CAMPGROUNDS_QUERY from '../../graphql/queries/campgrounds';
 
 // Component
-import Add from '../Add/Add';
-import Menu from '../Menu/Menu';
 import Navigation from '../Navigation/Navigation';
 import Routes from './Routes';
 
 // Create theme
 const muiTheme = createMuiTheme(campMuiTheme);
 
-const styles = () => ({
-    div: {
-        display: 'flex',
-        flexDirection: 'row',
+const styles = theme => ({
+    appBarSpacer: {
+        ...theme.mixins.toolbar,
+    },
+    content: {
+        flexGrow: 1,
     },
     paper: {
-        width: '250px',
-        height: '100vh'
+        width: '300px',
+        height: '100vh',
+    },
+    root: {
+        display: 'flex',
     },
 });
 
@@ -40,35 +47,17 @@ class App extends Component {
             <div>
                 {/* CssBaseline provides a hard CSS reset. example(removes margin on all browser windows)*/}
                 <CssBaseline />
-
                 {/* Provides an overall global theme and variables available to components*/}
                 <MuiThemeProvider theme={muiTheme}>
-                    {data.campgrounds && (
-                        <Navigation campgrounds={data.campgrounds} />
-                    )}
-                    <div className={classes.div}>
-                        {/* Hide Menu in Mobile View */}
-                        <Hidden xsDown>
-                            {/* Elevation represents shadow intensity */}
-                            {data.campgrounds && (
-                                <Paper
-                                    elevation={1}
-                                    className={classes.paper}
-                                >
-                                    {data.campgrounds.map(
-                                        campground => (
-                                            <Menu
-                                                key={campground.id}
-                                                campground={campground}
-                                            />
-                                        )
-                                    )}
-                                    <Divider />
-                                    <Add />
-                                </Paper>
-                            )}
-                        </Hidden>
-                        <Routes />
+                    <div className={classes.root}>
+                        {data.campgrounds && (
+                            <Navigation campgrounds={data.campgrounds} />
+                        )}
+                        <main className={classes.content}>
+                            {/* Provides a responsive height to complement the Navigation/MUI AppBar behavioral changes between landscape and portrait view. */}
+                            <div className={classes.appBarSpacer} />
+                            <Routes />
+                        </main>
                     </div>
                 </MuiThemeProvider>
             </div>
