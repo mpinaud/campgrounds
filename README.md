@@ -7,7 +7,7 @@ An application to practice using a tech stack of React, Material-UI & Apollo on 
 ![cover](https://github.com/mpinaud/finders-teepers/blob/master/src/assets/readme/details.png)
 
 ## Known Bugs
-The Heroku free dyno type subscription comes with one giant limitation. The app will go to sleep after 30 minutes of inactivity. When the app is asleep, the next user to access any of its resources will have to wait while the app spins up, resulting in a suboptimal user experience. The screen will be blank for up to 1 minute before the app loads. User will have to manually refresh page. ⏰
+The Heroku free dyno type subscription comes with one giant limitation. The app will go to sleep after 30 minutes of inactivity. When the app is asleep, the next user to access any of its resources will have to wait while the app spins up, resulting in a suboptimal user experience. The screen could be blank for up to 30 seconds before the app loads. ⏰
 
 ## View
 https://campgrounds-yoga-fe-prod.herokuapp.com/#/
