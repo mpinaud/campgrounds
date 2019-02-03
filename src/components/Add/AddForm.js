@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Mutation} from 'react-apollo';
-import {withRouter} from 'react-router-dom';
+import {withRouter, Redirect} from 'react-router-dom';
 
 // Material
 import {withStyles} from '@material-ui/core/styles';
@@ -44,11 +44,12 @@ class AddForm extends Component {
             image,
             name,
         } = this.props;
+        const {id} = this.state;
 
         // Redirect to Campground Page when createCampgroundMutation mutation is fired.
-        // if (id) {
-        //     return <Redirect to={`/${id}`} />;
-        // }
+        if (id) {
+            return <Redirect to={`/${id}`} />;
+        }
 
         return (
             <Dialog

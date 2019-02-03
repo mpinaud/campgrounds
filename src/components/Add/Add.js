@@ -21,12 +21,12 @@ const styles = theme => ({
 
 class Add extends Component {
     state = {
-        open: false,
         campground: {
             name: '',
             image: '',
         },
         error: false,
+        open: false,
     }; 
 
     handleAdd = createCampgroundMutation => {
