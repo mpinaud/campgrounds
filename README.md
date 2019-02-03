@@ -1,6 +1,6 @@
 # Finders Teepers
 
-An application solely for practice using a tech stack of React, Material-UI & Apollo on the frontend with Prisma & GraphQL Yoga on the backend while deployed to Heroku.
+An application to practice using a tech stack of React, Material-UI & Apollo on the frontend with Prisma & GraphQL Yoga on the backend while being deployed on to Heroku. This app is fully responsive.
 
 ![cover](https://github.com/mpinaud/finders-teepers/blob/master/src/assets/readme/cover.png)
 ![cover](https://github.com/mpinaud/finders-teepers/blob/master/src/assets/readme/form.png)
@@ -30,13 +30,27 @@ https://campgrounds-yoga-fe-prod.herokuapp.com/#/
 * Apollo
   * How to store all data to cache
   * How to create CRUD query and mutation resolvers
-  * How to mutate data and refresh cache to update the UI
+  * How to excecute CRUD operations
+  * How to refresh cache after a mutation to update the UI
   
 * React
   * How to connect the Apollo Client to the backend
   * How to implement a Portal
-  * How to implement code splitting in React-Router
-  * How to excecute CRUD operations
+  * How to implement router side code splitting
+  * How to use react-router to redirect to new campground detail page after mutation is executed
+
+* Material-UI
+  * How to implement an MUI theme
+  * How to use MUI theme variables
+  * How to implement MUI theme overrides
+  * How to use the width API to execute media queries
+  * How to override all the class names injected by Material-UI for custom CSS properties
+  
+## Wish List
+  * Loading Bar
+  * Full CRUD functionality on the frontend including delete and edit
+  * Animation page transisions
+  * Login
 
 ## Technologies
 
@@ -50,7 +64,9 @@ https://campgrounds-yoga-fe-prod.herokuapp.com/#/
 
 ## Setup
 
-* Clone this repository from https://github.com/mpinaud/finders-teepers
+* Clone these repositories
+  * https://github.com/mpinaud/finders-teepers
+  * https://github.com/mpinaud/finders-teepers-server
 
 ## By
 Mikey Pinaud 12/9/2018
