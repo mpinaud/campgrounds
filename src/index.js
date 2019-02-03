@@ -8,6 +8,9 @@ import App from './components/App/App';
 import * as serviceWorker from './serviceWorker';
 
 // Apollo client setup
+// const client = new ApolloClient({
+//     uri: 'http://localhost:4444/',
+// });
 const client = new ApolloClient({
     uri: 'https://campgrounds-yoga-prod.herokuapp.com/',
 });
