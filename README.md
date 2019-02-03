@@ -2,6 +2,10 @@
 
 An application solely for practice using a tech stack of React, Material-UI & Apollo on the frontend with Prisma & GraphQL Yoga on the backend while deployed to Heroku.
 
+## Known Bugs
+Heroku comes with one giant limitation. The app will go to sleep after an hour of inactivity.
+When the app is asleep, the next user to access any of its resources will have to wait while the app spins up, resulting in a suboptimal user experience. The screen will be blank for about 30 seconds before the app loads. ⏰
+
 ## View
 https://campgrounds-yoga-fe-prod.herokuapp.com/#/
 
