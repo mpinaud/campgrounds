@@ -20,7 +20,7 @@ https://campgrounds-yoga-fe-prod.herokuapp.com/#/
   * How to generate a set of CRUD API's from the schema
   * How to use the Prisma Playground
   * How to call one endpoint and get specific minimal data returned from the database
-  * How to use the Prisma Admin GUI to manually update directly on the tables
+  * How to use the Prisma Admin GUI to manually update nodes direct within each table
   
 * GraphQL Yoga
   * How to create a public facing API
@@ -50,7 +50,7 @@ https://campgrounds-yoga-fe-prod.herokuapp.com/#/
   * Loading Bar
   * Full CRUD functionality on the frontend including delete and edit
   * Animation page transisions
-  * Login
+  * Authentication with login
 
 ## Technologies
 
